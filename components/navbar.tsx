@@ -30,7 +30,10 @@ function Navbar() {
           </h1>
         </Link>
       </div>
-      <Link href="/" className="md:hidden">
+      <Link
+        href="/"
+        className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      >
         <Image src="/logo.svg" alt="logo" width={32} height={32} className="" />
       </Link>
       <div className="flex justify-between items-center z-50 gap-x-1">
