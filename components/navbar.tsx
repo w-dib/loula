@@ -2,7 +2,6 @@ import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
-import { Menu } from "lucide-react";
 import { Poppins } from "next/font/google";
 import MobileSidebar from "./mobile-sidebar";
 
@@ -16,7 +15,6 @@ function Navbar() {
     <header className="w-full fixed z-40 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary h-16">
       <div className="flex items-center">
         <MobileSidebar />
-
         <Link href="/" className="hidden md:flex items-center">
           <Image
             src="/logo.svg"
@@ -32,10 +30,10 @@ function Navbar() {
           </h1>
         </Link>
       </div>
-      <Link href="/" className="flex md:hidden items-center">
+      <Link href="/" className="md:hidden">
         <Image src="/logo.svg" alt="logo" width={32} height={32} className="" />
       </Link>
-      <div className="flex justify-between items-center z-50 gap-x-3">
+      <div className="flex justify-between items-center z-50 gap-x-1">
         <ModeToggle />
         <UserButton afterSignOutUrl="/" />
       </div>

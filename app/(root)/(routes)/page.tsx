@@ -1,7 +1,9 @@
+import SearchInput from "@/components/search-input";
+
 export default function Home() {
   return (
-    <main className="h-full">
-      <h1>Home</h1>
+    <main className="h-full p-4 space-y-2">
+      <SearchInput />
     </main>
   );
 }
