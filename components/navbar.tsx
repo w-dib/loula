@@ -12,7 +12,7 @@ const font = Poppins({
 
 function Navbar() {
   return (
-    <header className="w-full fixed z-40 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary">
+    <header className="w-full fixed z-40 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary h-16">
       <div className="flex items-center">
         <Menu className="md:hidden block" />
         <Link href="/" className="hidden md:flex items-center">
@@ -30,7 +30,7 @@ function Navbar() {
           </h1>
         </Link>
       </div>
-      <div className="flex justify-between items-center z-50">
+      <div className="flex justify-between items-center z-50 gap-x-3">
         <ModeToggle />
         <UserButton afterSignOutUrl="/" />
       </div>
