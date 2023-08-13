@@ -18,7 +18,7 @@ function Sidebar() {
     {
       icon: Plus,
       href: "/add",
-      label: "Add",
+      label: "Category",
     },
     {
       icon: Settings,
