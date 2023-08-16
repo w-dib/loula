@@ -12,4 +12,18 @@ datasource db {
 model Category {
   id            String @id @default(uuid())
   name          String
+  expenses      Expense[]
+}
+
+model Expense {
+  id            String @id @default(uuid())
+  name          String
+  amount        Float
+  date          DateTime
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([categoryId])
 }

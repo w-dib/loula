@@ -1,8 +1,6 @@
 "use client";
 
-import { SignOutButton } from "@clerk/nextjs";
-import { Button } from "./ui/button";
-import { FolderTree, Home, Plus, Settings } from "lucide-react";
+import { Home, Plus, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -17,13 +15,8 @@ function Sidebar() {
     },
     {
       icon: Plus,
-      href: "/add",
+      href: "/expense/new",
       label: "Expense",
-    },
-    {
-      icon: FolderTree,
-      href: "/newcategory",
-      label: "Category",
     },
     {
       icon: Settings,
