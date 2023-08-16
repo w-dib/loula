@@ -83,7 +83,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
                     className=" justify-between rounded-r-xl"
                   >
                     {value
-                      ? categories.find((item) => item.id === value)?.name
+                      ? categories.find((item) => item.name === value)?.name
                       : "Category"}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
@@ -96,13 +96,8 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
                       {categories.map((item) => (
                         <CommandItem
                           key={item.id}
-                          onSelect={(currentValue) => {
-                            console.log("Clicked on item:", item.name);
-                            console.log("value:", value);
-                            console.log("Current value:", currentValue);
-                            setValue(
-                              currentValue === value ? "" : currentValue
-                            );
+                          onSelect={() => {
+                            setValue(item.name);
                             setOpen(false);
                           }}
                         >
