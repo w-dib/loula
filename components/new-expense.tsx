@@ -62,7 +62,7 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: "Name is required.",
   }),
-  amount: z.number().min(0.01, {
+  amount: z.coerce.number().min(0.01, {
     message: "Amount must be greater than 0.",
   }),
   date: z.date().min(new Date(2000, 1, 1), {
@@ -129,12 +129,12 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
             </div>
             <Separator />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex lg:flex-row gap-4 md:justify-left justify-center flex-col">
             <FormField
               name="name"
               control={form.control}
               render={({ field }) => (
-                <FormItem className="col-span-2 md:col-span-1">
+                <FormItem className=" ">
                   <FormLabel>Expense Details</FormLabel>
                   <FormControl>
                     <Input
@@ -197,6 +197,20 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
                   <FormDescription>
                     Select a category for your expense
                   </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="date"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Date</FormLabel>
+                  <FormControl>
+                    <DatePicker />
+                  </FormControl>
+                  <FormDescription>When did you buy this</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
