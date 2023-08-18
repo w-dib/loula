@@ -79,7 +79,6 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     try {
       if (initialData) {
         await axios.patch(`/api/expenses/${initialData.id}`, values);
@@ -89,7 +88,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
 
       toast({
         variant: "default",
-        description: "Success! 🤑",
+        description: "Success! I'm proud of you Loula! 🤑",
         duration: 3000,
       });
       router.refresh();
@@ -97,7 +96,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
     } catch (error) {
       toast({
         variant: "destructive",
-        description: "Something went wrong.",
+        description: "Something went wrong. Contact Walid.",
         duration: 3000,
       });
     }

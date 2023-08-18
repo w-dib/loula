@@ -17,8 +17,8 @@ model Category {
 
 model Expense {
   id            String @id @default(uuid())
-  userName      String @unique
-  userId        String @unique
+  userName      String 
+  userId        String 
   name          String
   amount        Float
   date          DateTime

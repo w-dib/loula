@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    const expenses = await prismadb.expense.create({
+    const expense = await prismadb.expense.create({
       data: {
         userId: user.id,
         userName: user.firstName,
@@ -28,9 +28,9 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json(expenses);
+    return NextResponse.json(expense);
   } catch (error) {
-    console.log("error");
+    console.log(error);
     return new NextResponse("error", { status: 500 });
   }
 }
