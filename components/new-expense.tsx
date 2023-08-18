@@ -20,10 +20,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-// import { ImageUpload } from "@/components/image-upload";
-// import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import {
   Select,
@@ -65,8 +63,8 @@ interface ExpenseFormProps {
 }
 
 function NewExpense({ initialData, categories }: ExpenseFormProps) {
-  // const { toast } = useToast();
-  // const router = useRouter();
+  const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -74,29 +72,35 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
       name: "",
       amount: 0,
       date: new Date(),
-      categoryId: "",
+      categoryId: undefined,
     },
   });
-
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    // try {
-    //   if (initialData) {
-    //     await axios.patch(`/api/expenses/${initialData.id}`, values);
-    //   } else {
-    //     await axios.post("/api/expenses", values);
-    //   }
-    // } catch (error) {
-    // toast({
-    //   variant: "destructive",
-    //   description: "Something went wrong.",
-    //   duration: 3000,
-    // });
+    try {
+      if (initialData) {
+        await axios.patch(`/api/expenses/${initialData.id}`, values);
+      } else {
+        await axios.post("/api/expenses", values);
+      }
+
+      toast({
+        variant: "default",
+        description: "Success! 🤑",
+        duration: 3000,
+      });
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong.",
+        duration: 3000,
+      });
+    }
   };
 
   return (

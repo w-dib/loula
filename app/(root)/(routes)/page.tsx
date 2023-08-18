@@ -1,5 +1,4 @@
 import Categories from "@/components/categories";
-import { DatePicker } from "@/components/date-picker";
 import SearchInput from "@/components/search-input";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
