@@ -6,6 +6,9 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
 
 import {
   Form,
@@ -17,7 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 // import { ImageUpload } from "@/components/image-upload";
 // import { useToast } from "@/components/ui/use-toast";
@@ -30,33 +33,16 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import * as React from "react";
-import { Check, ChevronsUpDown, Wand2 } from "lucide-react";
+import { Wand2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { DatePicker } from "./date-picker";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -65,8 +51,8 @@ const formSchema = z.object({
   amount: z.coerce.number().min(0.01, {
     message: "Amount must be greater than 0.",
   }),
-  date: z.date().min(new Date(2000, 1, 1), {
-    message: "Date must be after 2000.",
+  date: z.date().min(new Date("2023-05-05"), {
+    message: "Date must be after 2023/05/05.",
   }),
   categoryId: z.string().min(1, {
     message: "Category is required",
@@ -129,7 +115,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
             </div>
             <Separator />
           </div>
-          <div className="flex lg:flex-row gap-4 md:justify-left justify-center flex-col">
+          <div className="flex gap-4 md:justify-left justify-center flex-col">
             <FormField
               name="name"
               control={form.control}
@@ -156,6 +142,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
                   <FormLabel>Amount in AED</FormLabel>
                   <FormControl>
                     <Input
+                      type="number"
                       disabled={isLoading}
                       placeholder="1,000 AED"
                       {...field}
@@ -202,15 +189,45 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
               )}
             />
             <FormField
-              name="date"
               control={form.control}
+              name="date"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <DatePicker />
-                  </FormControl>
-                  <FormDescription>When did you buy this</FormDescription>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Date of birth</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("2023-05-05")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>
+                    When did you pay this expense?
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -228,89 +245,5 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
     </div>
   );
 }
-
-//   return (
-//     <div className="flex flex-col items-center">
-//       <Dialog>
-//         <DialogTrigger asChild>
-//           <Button type="submit">Add Expense</Button>
-//         </DialogTrigger>
-//         <DialogContent className="sm:max-w-[425px]">
-//           <DialogHeader>
-//             <DialogTitle>Add new expense</DialogTitle>
-//             <DialogDescription>
-//               Type the details of the expense and the amount you spent.
-//             </DialogDescription>
-//           </DialogHeader>
-//           <div className="grid gap-4 py-4 max-w-full">
-//             <div className="grid grid-cols-4 items-center gap-4">
-//               <Label htmlFor="expenseName" className="text-left">
-//                 Name
-//               </Label>
-//               <Input id="expenseName" className="col-span-3" />
-//             </div>
-//             <div className="grid grid-cols-4 items-center gap-4">
-//               <Label htmlFor="expenseValue" className="text-left">
-//                 Amount
-//               </Label>
-//               <Input
-//                 id="expenseValue"
-//                 defaultValue="$"
-//                 className="col-span-3"
-//               />
-//             </div>
-//             <Separator />
-//             <div className="grid grid-cols-2 w-full">
-//               <DatePicker />
-//               <Popover open={open} onOpenChange={setOpen}>
-//                 <PopoverTrigger asChild>
-//                   <Button
-//                     variant="outline"
-//                     role="combobox"
-//                     aria-expanded={open}
-//                     className=" justify-between rounded-r-xl"
-//                   >
-//                     {value
-//                       ? categories.find((item) => item.name === value)?.name
-//                       : "Category"}
-//                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-//                   </Button>
-//                 </PopoverTrigger>
-//                 <PopoverContent className="p-0">
-//                   <Command>
-//                     <CommandInput placeholder="Search categories..." />
-//                     <CommandEmpty>No category found.</CommandEmpty>
-//                     <CommandGroup>
-//                       {categories.map((item) => (
-//                         <CommandItem
-//                           key={item.id}
-//                           onSelect={() => {
-//                             setValue(item.name);
-//                             setOpen(false);
-//                           }}
-//                         >
-//                           <Check
-//                             className={cn(
-//                               "mr-2 h-4 w-4",
-//                               value === item.id ? "opacity-100" : "opacity-0"
-//                             )}
-//                           />
-//                           {item.name}
-//                         </CommandItem>
-//                       ))}
-//                     </CommandGroup>
-//                   </Command>
-//                 </PopoverContent>
-//               </Popover>
-//             </div>
-//           </div>
-//           <DialogFooter>
-//             <Button type="submit">Save changes</Button>
-//           </DialogFooter>
-//         </DialogContent>
-//       </Dialog>
-//     </div>
-//   );
-// }
 
 export default NewExpense;
