@@ -1,4 +1,5 @@
 import Categories from "@/components/categories";
+import ExpenseCard from "@/components/expense-card";
 import SearchInput from "@/components/search-input";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
@@ -11,6 +12,7 @@ export default async function Home() {
       <SearchInput />
       <Categories data={categories} />
       <Separator />
+      <ExpenseCard />
     </main>
   );
 }
