@@ -17,12 +17,27 @@ interface ExpenseCardProps {
 }
 
 function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
-  console.log(categoryMap); // Log the categoryMap to the console
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      undefined,
+      options
+    );
+    return formattedDate;
+  };
+
+  const sortedData = data.slice().sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 
   return (
     <div className="mt-3 flex flex-col lg:flex-row gap-2">
-      {data.map((item) => (
-        <Card key={item.id}>
+      {sortedData.map((item) => (
+        <Card key={item.id} className="flex-1 flex-wrap">
           <CardHeader>
             <CardTitle>
               <div className="flex justify-between items-center">
@@ -69,7 +84,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
           </CardContent>
           <CardFooter className="text-xs flex justify-between">
             <div>
-              <p>{item.date.toString()}</p>
+              <p>{formatDate(item.date.toString())}</p>
             </div>
           </CardFooter>
         </Card>
