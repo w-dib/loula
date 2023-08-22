@@ -82,15 +82,20 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
     try {
       if (initialData) {
         await axios.patch(`/api/expenses/${initialData.id}`, values);
+        toast({
+          variant: "default",
+          description: "Updated successfully!",
+          duration: 3000,
+        });
       } else {
         await axios.post("/api/expenses", values);
+        toast({
+          variant: "default",
+          description: "Success! I'm proud of you Loula! 🤑",
+          duration: 3000,
+        });
       }
 
-      toast({
-        variant: "default",
-        description: "Success! I'm proud of you Loula! 🤑",
-        duration: 3000,
-      });
       router.refresh();
       router.push("/");
     } catch (error) {

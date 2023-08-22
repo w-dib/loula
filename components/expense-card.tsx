@@ -1,4 +1,7 @@
+"use client";
+
 import { Expense } from "@prisma/client";
+import axios from "axios";
 
 import {
   Card,
@@ -11,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Pencil, Trash } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ExpenseCardProps {
   data: Expense[];
@@ -35,6 +39,17 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 
+  const router = useRouter();
+
+  const onDelete = async (id: string) => {
+    try {
+      await axios.delete(`/api/expenses/${id}`);
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="mt-3 flex flex-col lg:flex-row gap-2">
       {sortedData.map((item) => (
@@ -49,7 +64,10 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
                       <Pencil className="w-5 h-5" />
                     </Link>
                   </div>
-                  <div className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition">
+                  <div
+                    onClick={() => onDelete(item.id)}
+                    className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition"
+                  >
                     <Trash className="w-5 h-5" />
                   </div>
                 </div>
