@@ -42,9 +42,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
           <CardHeader>
             <CardTitle>
               <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-primary">{item.name}</p>
-                </div>
+                <p className="text-primary">{item.name}</p>
                 <div className="flex space-x-2">
                   <div className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-primary hover:bg-primary/10 rounded-xl transition">
                     <Link href={`/expense/${item.id}`}>
@@ -86,9 +84,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
             <p className="text-primary text-lg">{item.amount} AED</p>
           </CardContent>
           <CardFooter className="text-xs flex justify-between">
-            <div>
-              <p>{formatDate(item.date.toString())}</p>
-            </div>
+            <p>{formatDate(item.date.toString())}</p>
           </CardFooter>
         </Card>
       ))}
