@@ -28,7 +28,7 @@ function Categories({ data }: CategoriesProps) {
   };
 
   return (
-    <div className="w-full overflow-x-auto space-x-2 flex p-1">
+    <div className="w-full overflow-x-auto space-x-2 flex p-1 no-scrollbar">
       <button
         onClick={() => onClick(undefined)}
         className={cn(
