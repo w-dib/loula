@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Pencil, Trash } from "lucide-react";
+import Link from "next/link";
 
 interface ExpenseCardProps {
   data: Expense[];
@@ -46,7 +47,9 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
                 </div>
                 <div className="flex space-x-2">
                   <div className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-primary hover:bg-primary/10 rounded-xl transition">
-                    <Pencil className="w-5 h-5" />
+                    <Link href={`/expense/${item.id}`}>
+                      <Pencil className="w-5 h-5" />
+                    </Link>
                   </div>
                   <div className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition">
                     <Trash className="w-5 h-5" />
