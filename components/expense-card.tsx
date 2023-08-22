@@ -57,6 +57,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
     try {
       await axios.delete(`/api/expenses/${id}`);
       router.refresh();
+      router.push("/");
     } catch (error) {
       console.log(error);
     }

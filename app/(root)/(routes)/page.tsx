@@ -6,6 +6,7 @@ import Categories from "@/components/categories";
 import ExpenseCard from "@/components/expense-card";
 import SearchInput from "@/components/search-input";
 import { Separator } from "@/components/ui/separator";
+import { DatePickerWithRange } from "@/components/date-range";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus } from "lucide-react";
 
@@ -40,8 +41,18 @@ export default async function Home() {
             <TabsTrigger value="expenses">Expenses</TabsTrigger>
             <TabsTrigger value="budget">Budget</TabsTrigger>
           </TabsList>
-          <TabsContent value="expenses">
-            <SearchInput />
+          <TabsContent value="expenses" className="space-y-2">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between md:space-y-0 space-y-2">
+              <div className="flex-1 md:mr-5">
+                <SearchInput />
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs md:mr-2 pl-2 md:pl-0">
+                  Filter by date:
+                </span>
+                <DatePickerWithRange />
+              </div>
+            </div>
             <Categories data={categories} />
             <Separator />
             <ExpenseCard data={expenses} categoryMap={categoryMap} />
