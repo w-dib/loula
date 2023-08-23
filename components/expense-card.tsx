@@ -72,16 +72,15 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
               <div className="flex justify-between items-center">
                 <p className="text-primary">{item.name}</p>
                 <div className="flex space-x-2">
-                  <div className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-primary hover:bg-primary/10 rounded-xl transition">
-                    <Link href={`/expense/${item.id}`}>
-                      <Pencil className="w-5 h-5" />
-                    </Link>
-                  </div>
+                  <Link
+                    href={`/expense/${item.id}`}
+                    className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-primary hover:bg-primary/10 rounded-xl transition"
+                  >
+                    <Pencil className="w-5 h-5" />
+                  </Link>
                   <AlertDialog>
-                    <AlertDialogTrigger>
-                      <div className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition">
-                        <Trash className="w-5 h-5" />
-                      </div>{" "}
+                    <AlertDialogTrigger className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition">
+                      <Trash className="w-5 h-5" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -108,10 +107,9 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
                 </div>
               </div>
             </CardTitle>
-            <CardDescription>
-              <div
-                className={cn(
-                  `
+            <CardDescription
+              className={cn(
+                `
       flex
       items-center
       text-cener
@@ -127,10 +125,9 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
       transition
       w-min
       `
-                )}
-              >
-                {categoryMap[item.categoryId]}
-              </div>
+              )}
+            >
+              {categoryMap[item.categoryId]}
             </CardDescription>
           </CardHeader>
           <CardContent>
