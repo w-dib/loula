@@ -47,9 +47,7 @@ export default async function Home() {
                 <SearchInput />
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xs md:mr-2 pl-2 md:pl-0">
-                  Filter by date:
-                </span>
+                <span className="text-xs md:mr-2 pl-2 md:pl-0">Date:</span>
                 <DatePickerWithRange />
               </div>
             </div>
