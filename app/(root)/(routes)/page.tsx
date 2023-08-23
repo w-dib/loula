@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus } from "lucide-react";
 import HomeFooter from "@/components/home-footer";
 import ExpensesTab from "@/components/expenses-tab";
+import BudgetTab from "@/components/budget-tab";
 
 export default async function Home() {
   return (
@@ -16,7 +17,9 @@ export default async function Home() {
           <TabsContent value="expenses" className="space-y-2">
             <ExpensesTab />
           </TabsContent>
-          <TabsContent value="budget">Change your budget here.</TabsContent>
+          <TabsContent value="budget">
+            <BudgetTab />
+          </TabsContent>
         </Tabs>
         <Link
           href="/expense/new"

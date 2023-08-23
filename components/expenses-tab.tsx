@@ -5,6 +5,8 @@ import { DatePickerWithRange } from "./date-range";
 import ExpenseCard from "./expense-card";
 import SearchInput from "./search-input";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
+import { SlidersHorizontal } from "lucide-react";
 
 export default async function ExpensesTab() {
   const { userId } = auth();
@@ -30,9 +32,11 @@ export default async function ExpensesTab() {
         <div className="flex-1 md:mr-5">
           <SearchInput />
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-xs md:mr-2 pl-2 md:pl-0">Date:</span>
+        <div className="flex justify-between items-center space-x-2">
           <DatePickerWithRange />
+          <Button>
+            <SlidersHorizontal className="w-5 h-5" />
+          </Button>
         </div>
       </div>
       <Categories data={categories} />
