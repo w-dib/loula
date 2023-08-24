@@ -114,7 +114,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 pb-10"
         >
-          <div className="space-y-2 w-full col-span-2">
+          <div className="space-y-2 w-full">
             <div>
               <h3 className="xs:text-base text-lg font-medium">New expense</h3>
               <p className="text-sm text-muted-foreground">
