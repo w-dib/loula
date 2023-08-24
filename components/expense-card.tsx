@@ -63,10 +63,9 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
       await axios.delete(`/api/expenses/${id}`);
       router.refresh();
       router.push("/");
+      setIsDeleting(false);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsDeleting(false);
     }
   };
 
