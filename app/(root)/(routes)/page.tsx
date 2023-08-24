@@ -28,7 +28,7 @@ export default async function Home() {
           <Plus />
         </Link>
       </div>
-      <HomeFooter />
+      {/* <HomeFooter /> */}
     </main>
   );
 }

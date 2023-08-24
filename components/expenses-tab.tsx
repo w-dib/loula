@@ -27,7 +27,7 @@ export default async function ExpensesTab() {
   });
 
   return (
-    <div>
+    <div className="flex flex-col space-y-2">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-2 md:space-y-0 space-y-2">
         <div className="flex-1">
           <SearchInput />

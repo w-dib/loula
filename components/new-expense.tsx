@@ -201,7 +201,7 @@ function NewExpense({ initialData, categories }: ExpenseFormProps) {
               name="date"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Date of birth</FormLabel>
+                  <FormLabel>When did you pay?</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
