@@ -5,8 +5,8 @@ import { Overview } from "./overview";
 
 function BudgetTab() {
   return (
-    <div className="h-full p-4 space-y-2">
-      <div className="space-y-2 w-full col-span-2">
+    <div className="h-full space-y-2 max-w-3xl mx-auto">
+      <div className="space-y-2">
         <div>
           <h3 className="xs:text-base text-lg font-medium">
             Track your monthly budget here
@@ -18,7 +18,7 @@ function BudgetTab() {
         </div>
         <Separator />
       </div>
-      <div className="flex gap-4 flex-col max-w-3xl mx-auto">
+      <div className="flex gap-4 flex-col ">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
