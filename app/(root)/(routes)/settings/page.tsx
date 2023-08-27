@@ -66,12 +66,12 @@ export default function ProfileForm() {
   }
 
   const categorySum =
-    Number(form.watch("groceriesBudget")) +
-    Number(form.watch("transportationBudget")) +
-    Number(form.watch("entertainmentBudget")) +
-    Number(form.watch("personalBudget")) +
-    Number(form.watch("billsBudget")) +
-    Number(form.watch("miscBudget"));
+    (Number(form.watch("groceriesBudget")) || 0) +
+    (Number(form.watch("transportationBudget")) || 0) +
+    (Number(form.watch("entertainmentBudget")) || 0) +
+    (Number(form.watch("personalBudget")) || 0) +
+    (Number(form.watch("billsBudget")) || 0) +
+    (Number(form.watch("miscBudget")) || 0);
 
   const totalBudgetSum = Number(form.watch("totalBudget"));
 
@@ -116,7 +116,12 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel>Total monthly budget</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="20,000 AED" {...field} />
+                  <Input
+                    defaultValue={20000}
+                    type="number"
+                    placeholder="20,000 AED"
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
                   How much do you wish to spend per month?
