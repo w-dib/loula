@@ -15,11 +15,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
+import { Calculator } from "lucide-react";
 
-const categoryBudgetSchema = z.object({
+const profileFormSchema = z.object({
+  partner: z.string().optional(),
+  totalBudget: z.coerce.number().min(0.01, {
+    message: "Amount must be greater than 0.",
+  }),
   groceriesBudget: z.coerce.number().min(0.0, {
     message: "Please enter a valid number.",
   }),
@@ -40,21 +46,6 @@ const categoryBudgetSchema = z.object({
   }),
 });
 
-const profileFormSchema = z.object({
-  partner: z
-    .string()
-    .min(2, {
-      message: "Email must be at least 2 characters.",
-    })
-    .max(100, {
-      message: "Email must not be longer than 100 characters.",
-    }),
-  totalBudget: z.coerce.number().min(0.01, {
-    message: "Amount must be greater than 0.",
-  }),
-  categoryBudgets: z.array(categoryBudgetSchema),
-});
-
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export default function ProfileForm() {
@@ -65,23 +56,29 @@ export default function ProfileForm() {
 
   function onSubmit(data: ProfileFormValues) {
     toast({
-      variant: "default",
-      description: "Updated successfully!",
-      duration: 3000,
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
     });
   }
 
-  const categoryNames = [
-    "Groceries",
-    "Transportation",
-    "Entertainment",
-    "Personal",
-    "Bills",
-    "Misceallaneous",
-  ];
+  const categorySum =
+    Number(form.watch("groceriesBudget")) +
+    Number(form.watch("transportationBudget")) +
+    Number(form.watch("entertainmentBudget")) +
+    Number(form.watch("personalBudget")) +
+    Number(form.watch("billsBudget")) +
+    Number(form.watch("miscBudget"));
+
+  const totalBudgetSum = Number(form.watch("totalBudget"));
+
+  const budgetDifference = categorySum / totalBudgetSum;
 
   return (
-    <div className="h-full p-4 space-y-2 max-w-3xl mx-auto">
+    <div className="h-min-full p-4 space-y-2 max-w-3xl mx-auto mb-20">
       <div className="space-y-2 w-full mb-8">
         <div>
           <h3 className="xs:text-base text-lg font-medium">Settings</h3>
@@ -129,25 +126,119 @@ export default function ProfileForm() {
             )}
           />
 
-          {categoryNames.map((categoryName) => (
+          <Separator />
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-4">
             <FormField
-              key={categoryName}
-              name={`categoryBudgets.${categoryName}`}
+              name="groceriesBudget"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{categoryName}</FormLabel>
+                  <FormLabel>Groceries budget</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="0.00 AED" {...field} />
+                    <Input type="number" placeholder="2,000 AED" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    {/* Add description for this category if needed */}
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          ))}
+
+            <FormField
+              name="transportationBudget"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Transportation budget</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="1,000 AED" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="entertainmentBudget"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Entertainment budget</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="1,000 AED" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="personalBudget"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Personal budget</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="1,000 AED" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="billsBudget"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Bills budget</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="1,000 AED" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="miscBudget"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Miscellaneous budget</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="1,000 AED" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {!isNaN(totalBudgetSum && categorySum) && (
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Category Sum / Total Budget
+                </CardTitle>
+                <Calculator />
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="text-2xl font-bold">
+                  {categorySum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  /{" "}
+                  {totalBudgetSum
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  AED
+                </div>
+                <Progress value={budgetDifference * 100} />
+                <p className="text-xs text-muted-foreground">
+                  {(budgetDifference * 100).toFixed(0)}%
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
           <Button type="submit">Update settings</Button>
         </form>
       </Form>
