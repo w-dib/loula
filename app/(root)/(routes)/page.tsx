@@ -7,7 +7,7 @@ import BudgetTab from "@/components/budget-tab";
 
 export default async function Home() {
   return (
-    <main className="relative min-h-screen p-4 max-w-3xl mx-auto">
+    <main className="relative min-h-screen p-4 max-w-5xl mx-auto">
       <div className="mb-14">
         <Tabs defaultValue="expenses" className="w-full">
           <TabsList className="grid w-full grid-cols-2">

@@ -76,7 +76,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
           <LoadingSpinner />
         </div>
       ) : (
-        <div className="mt-3 flex flex-col lg:flex-row gap-2">
+        <div className="mt-3 flex flex-col lg:flex-row gap-2 flex-wrap">
           {sortedData.map((item) => (
             <Card key={item.id} className="flex-1 flex-wrap">
               <Card>

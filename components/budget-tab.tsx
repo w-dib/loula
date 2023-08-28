@@ -5,7 +5,7 @@ import { Overview } from "./overview";
 
 function BudgetTab() {
   return (
-    <div className="h-full space-y-2 max-w-3xl mx-auto">
+    <div className="h-full space-y-2 max-w-5xl mx-auto">
       <div className="space-y-2">
         <div>
           <h3 className="xs:text-base text-lg font-medium">
