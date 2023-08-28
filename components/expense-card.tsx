@@ -2,6 +2,7 @@
 
 import { Expense } from "@prisma/client";
 import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 
 import {
   Card,
@@ -28,6 +29,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoadingSpinner from "./ui/loading";
+import Image from "next/image";
 
 interface ExpenseCardProps {
   data: Expense[];
@@ -55,6 +57,8 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
   });
 
   const router = useRouter();
+
+  const { user } = useUser();
 
   const onDelete = async (id: string) => {
     try {
@@ -148,6 +152,12 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
                 </CardContent>
                 <CardFooter className="text-xs flex justify-between">
                   <p>{formatDate(item.date.toString())}</p>
+                  <Image
+                    src={user?.imageUrl as string}
+                    alt="receipt"
+                    width={50}
+                    height={50}
+                  />
                 </CardFooter>
               </Card>
             </Card>

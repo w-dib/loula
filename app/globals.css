@@ -9,20 +9,18 @@ body,
 }
 
 @layer utilities {
-  @variants responsive {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
 
-    @media (max-width: 640px) {
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   }
 }
@@ -71,14 +69,5 @@ body,
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
