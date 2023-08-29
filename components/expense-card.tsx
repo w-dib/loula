@@ -73,60 +73,61 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
     }
   };
 
-  return (
-    <>
-      {isDeleting ? (
-        <div className="mx-auto">
-          <LoadingSpinner />
-        </div>
-      ) : (
-        <div className="mt-3 flex flex-col lg:flex-row gap-2 flex-wrap">
-          {sortedData.map((item) => (
-            <Card key={item.id} className="flex-1 flex-wrap">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    <div className="flex justify-between items-center">
-                      <p className="text-primary">{item.name}</p>
-                      <div className="flex space-x-2">
-                        <Link
-                          href={`/expense/${item.id}`}
-                          className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-primary hover:bg-primary/10 rounded-xl transition"
-                        >
-                          <Pencil className="w-5 h-5" />
-                        </Link>
-                        <AlertDialog>
-                          <AlertDialogTrigger className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition">
-                            <Trash className="w-5 h-5" />
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Are you absolutely sure?
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will
-                                permanently delete this expense and remove your
-                                data from our servers.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                className="bg-destructive"
-                                onClick={() => onDelete(item.id)}
-                              >
-                                Continue
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+  if (user) {
+    return (
+      <>
+        {isDeleting ? (
+          <div className="mx-auto">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <div className="mt-3 flex flex-col lg:flex-row gap-2 flex-wrap">
+            {sortedData.map((item) => (
+              <Card key={item.id} className="flex-1 flex-wrap">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <div className="flex justify-between items-center">
+                        <p className="text-primary">{item.name}</p>
+                        <div className="flex space-x-2">
+                          <Link
+                            href={`/expense/${item.id}`}
+                            className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-primary hover:bg-primary/10 rounded-xl transition"
+                          >
+                            <Pencil className="w-5 h-5" />
+                          </Link>
+                          <AlertDialog>
+                            <AlertDialogTrigger className="text-muted-foreground text-xs group flex p-3 w-full justify-start cursor-pointer hover:text-destructive hover:bg-destructive/10 rounded-xl transition">
+                              <Trash className="w-5 h-5" />
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Are you absolutely sure?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This action cannot be undone. This will
+                                  permanently delete this expense and remove
+                                  your data from our servers.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  className="bg-destructive"
+                                  onClick={() => onDelete(item.id)}
+                                >
+                                  Continue
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
                       </div>
-                    </div>
-                  </CardTitle>
-                  <CardDescription
-                    className={cn(
-                      `
+                    </CardTitle>
+                    <CardDescription
+                      className={cn(
+                        `
     flex
     items-center
     text-cener
@@ -142,34 +143,35 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
     transition
     w-min
     `
-                    )}
-                  >
-                    {categoryMap[item.categoryId]}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-primary text-lg">{item.amount} AED</p>
-                </CardContent>
-                <CardFooter className="text-muted-foreground text-xs flex justify-between">
-                  <p>{formatDate(item.date.toString())}</p>
-                  <div className="flex justify-between items-center">
-                    <p className="mr-2">Submitted by: </p>
-                    <Image
-                      className="rounded-full border-2"
-                      src={user?.imageUrl as string}
-                      alt="receipt"
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                </CardFooter>
+                      )}
+                    >
+                      {categoryMap[item.categoryId]}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-primary text-lg">{item.amount} AED</p>
+                  </CardContent>
+                  <CardFooter className="text-muted-foreground text-xs flex justify-between">
+                    <p>{formatDate(item.date.toString())}</p>
+                    <div className="flex justify-between items-center">
+                      <p className="mr-2">Submitted by: </p>
+                      <Image
+                        className="rounded-full border-2"
+                        src={user?.imageUrl as string}
+                        alt="receipt"
+                        width={30}
+                        height={30}
+                      />
+                    </div>
+                  </CardFooter>
+                </Card>
               </Card>
-            </Card>
-          ))}
-        </div>
-      )}
-    </>
-  );
+            ))}
+          </div>
+        )}
+      </>
+    );
+  }
 }
 
 export default ExpenseCard;
