@@ -67,7 +67,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-full">
+      <div className="relative flex justify-center items-center">
         <LoadingSpinner />
       </div>
     );
