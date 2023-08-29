@@ -5,7 +5,6 @@ import { DatePickerWithRange } from "./date-range";
 import ExpenseCard from "./expense-card";
 import SearchInput from "./search-input";
 import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
 import { CategoryFilter } from "./category-filter";
 
 // interface RootPageProps {

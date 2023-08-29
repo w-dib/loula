@@ -14,7 +14,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ArrowDownWideNarrow } from "lucide-react";
 
+// interface CategoryFilterProps {
+//   position: string; // Add a position prop
+//   setPosition: (position: string) => void; // Add a callback function prop
+// }
+
 export function CategoryFilter() {
+// {
+//     /// help here
+//  }: CategoryFilterProps
   const [position, setPosition] = React.useState("desc");
 
   return (
