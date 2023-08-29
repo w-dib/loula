@@ -25,7 +25,12 @@ export default async function ExpensesTab({ searchParams }: RootPageProps) {
   const expenses = await prismadb.expense.findMany({
     where: {
       categoryId: searchParams.categoryId,
-      userId,
+      name: {
+        search: searchParams.name,
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

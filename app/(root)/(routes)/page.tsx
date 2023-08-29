@@ -15,7 +15,7 @@ export default async function Home() {
             <TabsTrigger value="budget">Budget</TabsTrigger>
           </TabsList>
           <TabsContent value="expenses" className="space-y-2">
-            <ExpensesTab />
+            <ExpensesTab searchParams={} />
           </TabsContent>
           <TabsContent value="budget">
             <BudgetTab />
