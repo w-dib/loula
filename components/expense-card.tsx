@@ -150,14 +150,18 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
                 <CardContent>
                   <p className="text-primary text-lg">{item.amount} AED</p>
                 </CardContent>
-                <CardFooter className="text-xs flex justify-between">
+                <CardFooter className="text-muted-foreground text-xs flex justify-between">
                   <p>{formatDate(item.date.toString())}</p>
-                  <Image
-                    src={user?.imageUrl as string}
-                    alt="receipt"
-                    width={50}
-                    height={50}
-                  />
+                  <div className="flex justify-between items-center">
+                    <p className="mr-2">Submitted by: </p>
+                    <Image
+                      className="rounded-full border-2"
+                      src={user?.imageUrl as string}
+                      alt="receipt"
+                      width={30}
+                      height={30}
+                    />
+                  </div>
                 </CardFooter>
               </Card>
             </Card>

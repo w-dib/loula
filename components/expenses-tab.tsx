@@ -8,7 +8,14 @@ import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { SlidersHorizontal } from "lucide-react";
 
-export default async function ExpensesTab() {
+interface RootPageProps {
+  searchParams: {
+    categoryId: string;
+    name: string;
+  };
+}
+
+export default async function ExpensesTab({ searchParams }: RootPageProps) {
   const { userId } = auth();
   if (!userId) {
     return redirectToSignIn();
@@ -17,6 +24,7 @@ export default async function ExpensesTab() {
   const categories = await prismadb.category.findMany();
   const expenses = await prismadb.expense.findMany({
     where: {
+      categoryId: searchParams.categoryId,
       userId,
     },
   });

@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -19,7 +20,7 @@ model Expense {
   id            String @id @default(uuid())
   userName      String 
   userId        String 
-  name          String
+  name          String @db.Text
   amount        Float
   date          DateTime
   category      Category @relation(fields: [categoryId], references: [id])
@@ -28,4 +29,5 @@ model Expense {
   updatedAt     DateTime @updatedAt
 
   @@index([categoryId])
+  @@fulltext([name])
 }
