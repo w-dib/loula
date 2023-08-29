@@ -16,7 +16,7 @@ import { SlidersHorizontal } from "lucide-react";
 // }
 
 export default async function ExpensesTab() {
-// { searchParams }: RootPageProps
+  // { searchParams }: RootPageProps
   const { userId } = auth();
   if (!userId) {
     return redirectToSignIn();
@@ -47,7 +47,7 @@ export default async function ExpensesTab() {
   });
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 h-full">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-2 md:space-y-0 space-y-2">
         <div className="flex-1">
           <SearchInput />
