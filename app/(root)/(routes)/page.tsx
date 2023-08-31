@@ -5,7 +5,14 @@ import HomeFooter from "@/components/home-footer";
 import ExpensesTab from "@/components/expenses-tab";
 import BudgetTab from "@/components/budget-tab";
 
-export default async function Home() {
+interface RootPageProps {
+  searchParams: {
+    categoryId: string;
+    name: string;
+  };
+}
+
+export default async function Home({ searchParams }: RootPageProps) {
   return (
     <main className="p-4 min-h-screen max-w-5xl mx-auto">
       <div className="mb-14 h-full">
@@ -15,7 +22,7 @@ export default async function Home() {
             <TabsTrigger value="budget">Budget</TabsTrigger>
           </TabsList>
           <TabsContent value="expenses" className="space-y-2 h-full">
-            <ExpensesTab />
+            <ExpensesTab searchParams={searchParams} />
           </TabsContent>
           <TabsContent value="budget">
             <BudgetTab />

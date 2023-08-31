@@ -7,32 +7,28 @@ import SearchInput from "./search-input";
 import { Separator } from "./ui/separator";
 import { CategoryFilter } from "./category-filter";
 
-// interface RootPageProps {
-//   searchParams: {
-//     categoryId: string;
-//     name: string;
-//   };
-// }
+interface RootPageProps {
+  searchParams: {
+    categoryId: string;
+    name: string;
+  };
+}
 
-export default async function ExpensesTab() {
-  // { searchParams }: RootPageProps
+export default async function ExpensesTab({ searchParams }: RootPageProps) {
   const { userId } = auth();
   if (!userId) {
     return redirectToSignIn();
   }
 
   const categories = await prismadb.category.findMany({});
-  // const expenses = await prismadb.expense.findMany({
-  //   where: {
-  //     categoryId: searchParams.categoryId,
-  //     name: {
-  //       search: searchParams.name,
-  //     },
-  //   },
 
   const expenses = await prismadb.expense.findMany({
     where: {
       userId,
+      categoryId: searchParams.categoryId,
+      name: {
+        search: searchParams.name,
+      },
     },
     orderBy: {
       date: "desc",

@@ -50,14 +50,12 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
   };
 
   const [loading, setLoading] = useState(false);
-  const [sortedData, setSortedData] = useState(data);
   const { user } = useUser();
 
   const onDelete = async (id: string) => {
     try {
       setLoading(true);
       await axios.delete(`/api/expenses/${id}`);
-      setSortedData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -75,9 +73,9 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
 
   if (user) {
     return (
-      <div className="mt-3 flex flex-col lg:flex-row gap-2 flex-wrap">
-        {sortedData.map((item) => (
-          <Card key={item.id} className="flex-1 flex-wrap">
+      <div className="mt-3 flex flex-col md:flex-row flex-wrap gap-2">
+        {data.map((item) => (
+          <Card key={item.id} className="w-full h-full">
             <Card>
               <CardHeader>
                 <CardTitle>
