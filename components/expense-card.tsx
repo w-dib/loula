@@ -6,6 +6,7 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Card,
@@ -49,6 +50,7 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
     return formattedDate;
   };
 
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
 
@@ -56,6 +58,8 @@ function ExpenseCard({ data, categoryMap }: ExpenseCardProps) {
     try {
       setLoading(true);
       await axios.delete(`/api/expenses/${id}`);
+      router.refresh();
+      router.push("/");
     } catch (error) {
       console.log(error);
     } finally {
