@@ -17,6 +17,7 @@ interface RootPageProps {
 export default async function ExpensesTab({ searchParams }: RootPageProps) {
   const { userId } = auth();
   if (!userId) {
+    console.log("No user id");
     return redirectToSignIn();
   }
 
